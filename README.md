@@ -22,12 +22,6 @@ Log into the instance using the IP address as host name (user name is `centos`).
 
 ### Install the required software
 
-Start by cloning this repository:
-
-```bash
-git clone https://github.com/qbic-projects/r-project-template.git
-```
-
 To run the Rstudio server via docker we will require:
 
 * [Docker](https://www.docker.com/)
@@ -43,6 +37,36 @@ sudo yum install vim -y
 sudo yum install git -y
 ```
 
+Install Homebrew:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Set up git commit name and email:
+
+```bash
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+```
+
+
+Install the gh client:
+
+```bash
+brew install gh
+```
+
+Log into GitHub to be able to clone the repository and follow the instructions to log in:
+
+```bash
+gh auth login
+```
+
+```bash
+git clone https://github.com/qbic-projects/r-project-template.git
+```
+
 Install necessary ansible roles (for docker, docker-compose and miniconda):
 
 ```bash
@@ -53,10 +77,15 @@ ansible-galaxy install andrewrothstein.miniconda
 Then run the `install_docker_conda.yml` ansible playbook in this repository:
 
 ```bash
+cd ansible-playbooks
 ansible-playbook install_docker_conda.yml
 ```
 
 Source once the `~/.bashrc` file or log out and log in again.
+
+```bash
+source ~/.bashrc
+```
 
 Verify docker installation:
 
@@ -81,7 +110,7 @@ Then log out and log back into the instance.
 
    ```bash
    cd r-project-template/rstudio-server-docker
-   docker-compose build     
+   docker-compose build
    ```
 
 2. Add the necessary dependencies in the `code/environment.yml` file and create the conda environment. Don't add rstudio in the environment file, this is already inside the container:
@@ -115,7 +144,7 @@ Then log out and log back into the instance.
 4. Run your project-specific instance of Rstudio-server
 
    ```bash
-   docker-compose up 
+   docker-compose up
    ```
 
 5. Log into Rstudio
